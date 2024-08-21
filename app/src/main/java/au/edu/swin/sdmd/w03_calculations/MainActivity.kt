@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,14 +25,22 @@ class MainActivity : AppCompatActivity() {
         val number2 = findViewById<EditText>(R.id.number2)
 
         val equals = findViewById<Button>(R.id.equals)
+
+        val answerTextView = findViewById<TextView>(R.id.answer)
+
+
+
         equals.setOnClickListener {
             val result = add(number1.text.toString(), number2.text.toString())
+
             // TODO: show result on the screen
+            answerTextView.text = result.toString()
+
         }
     }
 
     // adds two numbers together
-    private fun add(number1: String, number2: String) = number1 + number2
+    private fun add(number1: String, number2: String): Int = number1.toIntOrNull()!! + number2.toIntOrNull()!!
 
 
 }
