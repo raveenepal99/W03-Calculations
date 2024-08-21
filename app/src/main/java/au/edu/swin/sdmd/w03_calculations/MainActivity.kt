@@ -1,9 +1,9 @@
 package au.edu.swin.sdmd.w03_calculations
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
 import android.widget.Button
+import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,19 +28,43 @@ class MainActivity : AppCompatActivity() {
 
         val answerTextView = findViewById<TextView>(R.id.answer)
 
+        val radioGroup = findViewById<RadioGroup>(R.id.radio_group)
+
 
 
         equals.setOnClickListener {
-            val result = add(number1.text.toString(), number2.text.toString())
 
-            // TODO: show result on the screen
-            answerTextView.text = result.toString()
+            val selectedRadioButtonId = radioGroup.checkedRadioButtonId
 
+            val num1 = number1.text.toString().toIntOrNull()
+            val num2 = number2.text.toString().toIntOrNull()
+
+            if(num1 != null && num2 != null){
+                val result = when (selectedRadioButtonId){
+                    R.id.radio_plus -> add(num1, num2)
+                    R.id.radio_multiply -> multiply(num1, num2)
+                    else -> 0
+                }
+                // TODO: show result on the screen
+                answerTextView.text = result.toString()
+
+            }else{
+                answerTextView.text = "invalid input"
+            }
         }
     }
 
-    // adds two numbers together
-    private fun add(number1: String, number2: String): Int = number1.toIntOrNull()!! + number2.toIntOrNull()!!
 
+
+
+    // adds two numbers together
+    private fun add(num1: Int, num2: Int): Int{
+        return num1 + num2
+    }
+
+    //multiply
+    private fun multiply(num1: Int, num2: Int): Int {
+        return num1 * num2
+    }
 
 }
